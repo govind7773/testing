@@ -1,19 +1,19 @@
 $(document).ready(function (){
-    function getCoordinates(address){
-        fetch("https://maps.googleapis.com/maps/api/geocode/json?address="+address+'&key=AIzaSyCMPZ5D9UwemIbwNxU4cf5wxF2qI3stYMM')
-          .then((response) => {
-            response.json().then((data)=>{
-                console.log(data);
-            })
-            console.log(response);
-          })
-      }
+//     function getCoordinates(address){
+//         fetch("https://maps.googleapis.com/maps/api/geocode/json?address="+address+'&key=AIzaSyCMPZ5D9UwemIbwNxU4cf5wxF2qI3stYMM')
+//           .then((response) => {
+//             response.json().then((data)=>{
+//                 console.log(data);
+//             })
+//             console.log(response);
+//           })
+//       }
 
-    $('#getloctext').click(function(){
-       var address= $('#textaddin').val();
-       console.log(address);
-       getCoordinates(address);
-    });
+//     $('#getloctext').click(function(){
+//        var address= $('#textaddin').val();
+//        console.log(address);
+//        getCoordinates(address);
+//     });
  function showPosition(position) {
         console.log( position.coords.latitude , position.coords.latitude );
         // x.innerHTML = "Latitude: " + position.coords.latitude +
