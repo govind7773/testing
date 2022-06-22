@@ -2,7 +2,8 @@ $(document).ready(function (){
 
  function showPosition(position) {
         console.log( position.coords.latitude , position.coords.latitude );
-    
+            document.getElementById('addout').text(position.coords.latitude);
+
       }
     $('#getloc').click(function(){   
          if (navigator.geolocation) {
