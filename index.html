@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title>Event Click LatLng</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script> -->
+    <!-- playground-hide -->
+   
+    <!-- playground-hide-end -->
+
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="./getloc.js"></script>
+    <script src="./index.js"></script>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div class="root">
+        <button type="button" id="getloc" class="btn btn-primary m-auto text-right" >Save Location</button>
+    </div>
+    <div class="root">
+      <input type="text" name="address" id="textaddin">
+      <button type="button" class="btn btn-primary m-auto text-center" id="getloctext">get location</button>
+      <h1 id="addout"></h1>
+    </div>
+
+    <!-- 
+     The `defer` attribute causes the callback to execute after the full HTML
+     document has been parsed. For non-blocking uses, avoiding race conditions,
+     and consistent behavior across browsers, consider loading using Promises
+     with https://www.npmjs.com/package/@googlemaps/js-api-loader.
+    -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMPZ5D9UwemIbwNxU4cf5wxF2qI3stYMM&callback=initMap&v=weekly"
+      defer
+    ></script>
+  </body>
+</html>
