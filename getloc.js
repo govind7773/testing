@@ -14,19 +14,26 @@ $(document).ready(function (){
        console.log(address);
        getCoordinates(address);
     });
-
+ function showPosition(position) {
+        console.log( position.coords.latitude , position.coords.latitude );
+        // x.innerHTML = "Latitude: " + position.coords.latitude +
+        // "<br>Longitude: " +  position.coords.latitude;
+      }
     $('#getloc').click(function(){   
-        fetch("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCMPZ5D9UwemIbwNxU4cf5wxF2qI3stYMM",
-        {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'}
-        })
-        .then((response) => {
-          response.json().then((data)=>{
-              console.log(data);
-          })
-        //   console.log(response);
-        })
+         if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+          }
+//         fetch("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCMPZ5D9UwemIbwNxU4cf5wxF2qI3stYMM",
+//         {
+//             method: 'POST',
+//             headers: {'Content-Type': 'application/json'}
+//         })
+//         .then((response) => {
+//           response.json().then((data)=>{
+//               console.log(data);
+//           })
+//         //   console.log(response);
+//         })
         // $.ajax({
         //     url:"https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCMPZ5D9UwemIbwNxU4cf5wxF2qI3stYMM",
         //     type:"POST",
