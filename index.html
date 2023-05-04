@@ -9,29 +9,90 @@
 
     <link rel="stylesheet" type="text/css" href="./style.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="./getloc.js"></script>
-    <script src="./index.js"></script>
   </head>
   <body>
-    <div id="map"></div>
-    <div class="root">
-        <button type="button" id="getloc" class="btn btn-primary m-auto text-right" >Save Location</button>
-    </div>
-    <div class="root">
-      <input type="text" name="address" id="textaddin">
-      <button type="button" class="btn btn-primary m-auto text-center" id="getloctext">get location</button>
-      <h1 id="addout"></h1>
-    </div>
+    <h1>1.</h1>
+    <p>
+    #include <WiFi.h>
+#include <HTTPClient.h>
+int integer_to_be_sent=0;
 
-    <!-- 
-     The `defer` attribute causes the callback to execute after the full HTML
-     document has been parsed. For non-blocking uses, avoiding race conditions,
-     and consistent behavior across browsers, consider loading using Promises
-     with https://www.npmjs.com/package/@googlemaps/js-api-loader.
-    -->
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMPZ5D9UwemIbwNxU4cf5wxF2qI3stYMM&callback=initMap&v=weekly"
-      defer
-    ></script>
+// Set our wifi name and password
+
+const char* ssid = "rootusr";
+const char* password = "12345678";
+
+String serverName = "https://api.thingspeak.com/update?api_key=IQWJOS1OC7BIGVWR&field1=0";
+
+
+
+unsigned long lastTime = 0;
+unsigned long timerDelay = 10000;
+unsigned long begin_time=millis();
+
+
+
+void setup() {
+
+  Serial.begin(9600); // Opens up the serial port with a baudrate of 9600 bits per second
+//  WiFi.begin(ssid, password); // Attempt to connect to wifi with our password
+  WiFi.begin("Wokwi-GUEST", "", 6);
+
+  Serial.println("Connecting"); // Print our status to the serial monitor
+
+  // Wait for wifi to connect
+
+  while(WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+
+  }
+  Serial.println("");
+  Serial.print("Connected to WiFi network with IP Address: ");
+  Serial.println(WiFi.localIP());
+
+}
+
+void loop() {
+   if ((millis() - lastTime) > timerDelay) { // Check if its been a 10secs
+
+    if(WiFi.status()== WL_CONNECTED){ // Check to make sure wifi is still connected
+      if(integer_to_be_sent<11){
+        Serial.println(integer_to_be_sent);
+     sendData(integer_to_be_sent); // Call the sendData function defined below
+
+      }
+      else{
+        integer_to_be_sent=1;
+        sendData(integer_to_be_sent);
+      }
+      integer_to_be_sent++;
+    }
+
+    else {
+
+      Serial.println("WiFi Disconnected from rootusr network ");
+    }
+    lastTime = millis();
+  }
+}
+void sendData(int data){
+  HTTPClient http; // Initialize our HTTP client
+Serial.println(data);
+  String url = serverName + "&field1=" + data; // Define our entire url  
+  http.begin(url.c_str()); // Initialize our HTTP request    
+  int httpResponseCode = http.GET(); // Send HTTP request  
+
+  if (httpResponseCode > 0){ // Check for good HTTP status code
+    Serial.print("HTTP Response code: ");
+    Serial.println(httpResponseCode);
+  }
+  else{
+    Serial.print("Error code: ");
+    Serial.println(httpResponseCode);
+  }
+   http.end();
+}
+</p>
   </body>
 </html>
